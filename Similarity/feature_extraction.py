@@ -1,4 +1,6 @@
-import re
+"""
+without Structure in picture
+ import re
 
 def extract_features(text):
     keywords = re.findall(r'\b\w+\b', text.lower())
@@ -17,3 +19,20 @@ if __name__ == "__main__":
     text = "Your invoice text here"
     features = extract_features(text)
     print(features)
+ """
+
+from typing import Dict
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+
+def extract_features(text: str, structure: Dict[str, any]) -> Dict[str, any]:
+    words = text.lower().split()
+    keywords = [word for word in words if word not in ENGLISH_STOP_WORDS]
+    return {
+        "keywords": keywords,
+        "headers": structure["headers"],
+        "footers": structure["footers"],
+        "tables": structure["tables"],
+        "invoice_number": None,
+        "date": None,
+        "amount": None
+    }
