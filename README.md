@@ -2,57 +2,86 @@
 
 ## Overview
 
-This project aims to identify the most similar invoice from a database by comparing the text and structural information of an input invoice. By leveraging natural language processing (NLP) and machine learning techniques, we calculate similarity scores between the input invoice and the invoices in the database to find the best match.
+The Invoice Similarity Project aims to identify the most similar invoice from a database by comparing the text and structural information of an input invoice. This system leverages natural language processing (NLP) and machine learning techniques to calculate similarity scores between the input invoice and a database of invoices, thereby facilitating efficient invoice management and comparison.
 
 ## Approach
 
-### Step-by-Step Workflow
+### Document Representation Method
 
-1. **Input PDF Invoice**: The process begins with the input of a PDF invoice.
-2. **Text and Structure Extraction**: We use `pdfplumber` to extract the text and structural information from the PDF invoice.
-3. **Feature Extraction**: The extracted text is processed to extract features such as key phrases, amounts, dates, and other relevant information using NLP techniques.
-4. **Input Features**: The features extracted from the input invoice are prepared for comparison.
-5. **Database Comparison**: The input features are compared against the features of each invoice in the database.
-6. **Database Invoice Processing**: Each invoice in the database undergoes text extraction, feature extraction, and similarity score calculation.
-7. **Similarity Score Calculation**: The similarity score between the input invoice and each database invoice is calculated using cosine similarity and other relevant metrics.
-8. **Compare Similarity Scores**: The similarity scores are compared to identify the most similar invoice.
-9. **Output Results**: The results, including similarity scores and the matched invoices, are output.
+1. **Text Extraction**: 
+   - We use the `pdfplumber` library to extract text from PDF invoices.
+   - Each PDF invoice is parsed to retrieve the textual content, which is essential for further processing.
 
-### Flowchart of the Approach
+2. **Feature Extraction**:
+   - Key features such as invoice amounts, dates, phrases, and other relevant details are extracted using NLP techniques.
+   - The extracted text is processed to identify important features that contribute to invoice similarity.
 
-```mermaid
-graph TD
-    A[Start] --> B[Input PDF Invoice]
-    B --> C[Extract Text and Structure]
-    C --> D[Extract Features]
-    D --> E[Input Features]
+3. **Document Representation**:
+   - Each invoice is represented by its extracted features. This representation allows us to quantify and compare invoices based on their content.
 
-    E --> F{Compare with Database}
-    F --> G[Database Invoice 1]
-    F --> H[Database Invoice 2]
-    F --> I[Database Invoice N]
+### Similarity Metric Used
 
-    G --> J[Extract Text and Structure]
-    J --> K[Extract Features]
-    K --> L[Database Features]
-    L --> M[Calculate Similarity Score]
-    M --> N[Similarity Score for Invoice 1]
+- **Cosine Similarity**: 
+   - Cosine similarity is employed to measure the similarity between feature vectors of the input invoice and each invoice in the database.
+   - The cosine similarity metric is chosen due to its effectiveness in comparing high-dimensional data and capturing the similarity between document vectors.
 
-    H --> O[Extract Text and Structure]
-    O --> P[Extract Features]
-    P --> Q[Database Features]
-    Q --> R[Calculate Similarity Score]
-    R --> S[Similarity Score for Invoice 2]
+### Workflow
 
-    I --> T[Extract Text and Structure]
-    T --> U[Extract Features]
-    U --> V[Database Features]
-    V --> W[Calculate Similarity Score]
-    W --> X[Similarity Score for Invoice N]
+1. **Input PDF Invoice**: Provide the path to the PDF invoice you wish to compare.
+2. **Text and Structure Extraction**: The system extracts text and structural details from the PDF.
+3. **Feature Extraction**: Key features are extracted from the invoice text.
+4. **Database Comparison**: Compare the features of the input invoice against those in the invoice database.
+5. **Similarity Score Calculation**: Compute similarity scores using cosine similarity.
+6. **Output Results**: The most similar invoice and its similarity score are displayed.
 
-    N --> Y{Compare Similarity Scores}
-    S --> Y
-    X --> Y
-    Y --> Z[Most Similar Invoice]
-    Z --> AA[Output Results]
-    AA --> AB[End]
+## Results
+
+### Demonstration Video
+
+A video demonstrating the functionality of the code, including the input and comparison process, is available. The video shows:
+- How the system processes and extracts features from an input invoice.
+- The comparison of the input invoice with database invoices.
+- The similarity scores and matched invoices.
+
+### Example Results
+
+- **Input Invoice**: `invoices/2024.03.15_1145.pdf`
+  - **Matched Invoice**: `invoices/Faller_8.pdf`
+  - **Similarity Score**: 0.89
+
+- **Input Invoice**: `invoices/2024.07.15_2030.pdf`
+  - **Matched Invoice**: `invoices/Smith_Invoice_1.pdf`
+  - **Similarity Score**: 0.75
+
+## Instructions
+
+### How to Run the Project
+
+1. **Clone the Repository**:
+    ```sh
+    git clone https://github.com/your-repository/invoice-similarity.git
+    cd invoice-similarity
+    ```
+
+2. **Set Up the Virtual Environment**:
+    ```sh
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    pip install -r requirements.txt
+    ```
+
+3. **Run the Main Script**:
+    ```sh
+    python main.py
+    ```
+
+4. **Prepare the Data**:
+    - Place your input PDF invoice in the `Invoices/` directory.
+    - Ensure that the database of invoices is placed in the specified directory and is correctly referenced in the code.
+
+## Conclusion
+
+The Invoice Similarity Project provides a robust solution for comparing invoices by leveraging advanced NLP techniques and similarity metrics. The system efficiently extracts and compares invoice features to identify the most similar documents, making it a valuable tool for managing and processing invoices.
+
+For further details or inquiries, please refer to the demonstration video or contact us for additional information.
+
