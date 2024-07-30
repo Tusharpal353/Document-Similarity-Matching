@@ -37,7 +37,7 @@ The Invoice Similarity Project aims to identify the most similar invoice from a 
 ## Results
 
 ### Demonstration Video
-[Link text](https://www.loom.com/share/441909e4ded5448fa035e0e7c714fdbb?sid=63e4f4e6-a96e-4ec8-bb28-2b875e0cd6a2)
+[Demo Video](https://www.loom.com/share/441909e4ded5448fa035e0e7c714fdbb?sid=63e4f4e6-a96e-4ec8-bb28-2b875e0cd6a2)
 
 A video demonstrating the functionality of the code, including the input and comparison process, is available. The video shows:
 - How the system processes and extracts features from an input invoice.
