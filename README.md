@@ -1,31 +1,58 @@
 # Invoice Similarity Project
 
 ## Overview
-This project compares an input invoice (in PDF format) to a database of existing invoices to identify the most similar one based on content and structural similarity. The primary goal is to automate the process of finding duplicate or similar invoices, which can be useful for various applications such as fraud detection, record-keeping, and data analysis.
+
+This project aims to identify the most similar invoice from a database by comparing the text and structural information of an input invoice. By leveraging natural language processing (NLP) and machine learning techniques, we calculate similarity scores between the input invoice and the invoices in the database to find the best match.
 
 ## Approach
 
-### Document Representation Method
-The chosen method for representing documents involves extracting both text and structural features from the PDF invoices. The process is as follows:
-1. **Text Extraction**: Using `pdfplumber`, the text content of each invoice is extracted. This includes parsing the text from different sections of the invoice.
-2. **Structural Features**: In addition to text, structural features such as the layout and positioning of text blocks are considered. These features help capture the overall format and structure of the invoice.
+### Step-by-Step Workflow
 
-### Similarity Metric
-The similarity between invoices is calculated using a combination of text similarity and structural similarity:
-1. **Text Similarity**: Text similarity is computed using a variety of methods, including TF-IDF vectors and cosine similarity. This captures the content overlap between invoices.
-2. **Structural Similarity**: Structural similarity is evaluated by comparing the layout and arrangement of text blocks. This ensures that invoices with similar formatting are identified as similar, even if the exact text content differs.
+1. **Input PDF Invoice**: The process begins with the input of a PDF invoice.
+2. **Text and Structure Extraction**: We use `pdfplumber` to extract the text and structural information from the PDF invoice.
+3. **Feature Extraction**: The extracted text is processed to extract features such as key phrases, amounts, dates, and other relevant information using NLP techniques.
+4. **Input Features**: The features extracted from the input invoice are prepared for comparison.
+5. **Database Comparison**: The input features are compared against the features of each invoice in the database.
+6. **Database Invoice Processing**: Each invoice in the database undergoes text extraction, feature extraction, and similarity score calculation.
+7. **Similarity Score Calculation**: The similarity score between the input invoice and each database invoice is calculated using cosine similarity and other relevant metrics.
+8. **Compare Similarity Scores**: The similarity scores are compared to identify the most similar invoice.
+9. **Output Results**: The results, including similarity scores and the matched invoices, are output.
 
-By combining these two aspects, the approach aims to provide a robust measure of similarity that accounts for both content and presentation.
+### Flowchart of the Approach
 
-## Installation
+```mermaid
+graph TD
+    A[Start] --> B[Input PDF Invoice]
+    B --> C[Extract Text and Structure]
+    C --> D[Extract Features]
+    D --> E[Input Features]
 
-### Prerequisites
-- Python 3.8 or higher
-- `pdfplumber` for PDF text extraction
-- Other dependencies listed in `requirements.txt`
+    E --> F{Compare with Database}
+    F --> G[Database Invoice 1]
+    F --> H[Database Invoice 2]
+    F --> I[Database Invoice N]
 
-### Steps
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/invoice-similarity.git
-   cd invoice-similarity
+    G --> J[Extract Text and Structure]
+    J --> K[Extract Features]
+    K --> L[Database Features]
+    L --> M[Calculate Similarity Score]
+    M --> N[Similarity Score for Invoice 1]
+
+    H --> O[Extract Text and Structure]
+    O --> P[Extract Features]
+    P --> Q[Database Features]
+    Q --> R[Calculate Similarity Score]
+    R --> S[Similarity Score for Invoice 2]
+
+    I --> T[Extract Text and Structure]
+    T --> U[Extract Features]
+    U --> V[Database Features]
+    V --> W[Calculate Similarity Score]
+    W --> X[Similarity Score for Invoice N]
+
+    N --> Y{Compare Similarity Scores}
+    S --> Y
+    X --> Y
+    Y --> Z[Most Similar Invoice]
+    Z --> AA[Output Results]
+    AA --> AB[End]
